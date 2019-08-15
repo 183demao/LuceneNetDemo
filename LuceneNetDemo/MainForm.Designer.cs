@@ -41,9 +41,10 @@
             this.InputTextBox.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.InputTextBox.Location = new System.Drawing.Point(0, 0);
             this.InputTextBox.Name = "InputTextBox";
-            this.InputTextBox.Size = new System.Drawing.Size(702, 39);
+            this.InputTextBox.Size = new System.Drawing.Size(761, 39);
             this.InputTextBox.TabIndex = 0;
             this.InputTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.InputTextBox.TextChanged += new System.EventHandler(this.InputTextBox_TextChanged);
             // 
             // OutputListBox
             // 
@@ -56,18 +57,21 @@
             this.OutputListBox.ItemHeight = 25;
             this.OutputListBox.Location = new System.Drawing.Point(0, 39);
             this.OutputListBox.Name = "OutputListBox";
-            this.OutputListBox.Size = new System.Drawing.Size(702, 266);
+            this.OutputListBox.Size = new System.Drawing.Size(761, 434);
             this.OutputListBox.TabIndex = 1;
+            this.OutputListBox.DoubleClick += new System.EventHandler(this.OutputListBox_DoubleClick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 305);
+            this.ClientSize = new System.Drawing.Size(761, 473);
             this.Controls.Add(this.OutputListBox);
             this.Controls.Add(this.InputTextBox);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lucene.Net Demo";
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -12,6 +12,13 @@ namespace LuceneNetDemo.Assists
         /// 初始化索引
         /// </summary>
         /// <param name="indexModels"></param>
-        void InitIndices(IEnumerable<IIndexModel> indexModels);
+        void InitIndices(List<IIndexModel> indexModels);
+
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        List<IIndexModel> Search(string keyword);
     }
 }

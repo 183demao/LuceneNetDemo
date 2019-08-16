@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 
 namespace LuceneNetDemo.IndexModels
 {
@@ -14,6 +15,7 @@ namespace LuceneNetDemo.IndexModels
         /// <returns></returns>
         public static IIndexModel CreateIndexModel(string address)
         {
+            Debug.Print(address);
             string extension = Path.GetExtension(address).ToLower();
 
             switch (extension)
@@ -26,7 +28,12 @@ namespace LuceneNetDemo.IndexModels
                     break;
             }
 
-            return default;
+            return new IndexModel<string>()
+            {
+                Index = Path.GetFileName(address),
+                AttachedEntity = address,
+                Description = $"文件 => {address}",
+            };
         }
     }
 }

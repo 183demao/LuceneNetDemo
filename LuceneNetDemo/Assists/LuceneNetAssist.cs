@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
@@ -28,7 +29,7 @@ namespace LuceneNetDemo.Assists
         /// <summary>
         /// 分析器
         /// </summary>
-        private readonly Analyzer Analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+        private readonly Analyzer Analyzer = new StandardAnalyzer(Version.LUCENE_30);
 
         /// <summary>
         /// 单实例
@@ -65,7 +66,6 @@ namespace LuceneNetDemo.Assists
         /// <returns></returns>
         public List<IIndexModel> Search(string keyword)
         {
-            List<IIndexModel> results = new List<IIndexModel>();
             IndexSearcher searcher = new IndexSearcher(
                 this.Directory,
                 true);
@@ -75,9 +75,23 @@ namespace LuceneNetDemo.Assists
                 this.Analyzer);
             Query query = parser.Parse(keyword);
             var hits = searcher.Search(query, 20);
-            searcher.Dispose();
+            var results = hits.ScoreDocs
+                .Select(hit =>
+                {
+                    var doc = searcher.Doc(hit.Doc);
+                    var index = doc.Get(nameof(IIndexModel.Index));
+                    var description = doc.Get(nameof(IIndexModel.Description));
 
-            return default;
+                    return new IndexModel<string>()
+                    {
+                        Index = index,
+                        Description = description,
+                    } as IIndexModel;
+                })
+                .ToList();
+
+            searcher.Dispose();
+            return results;
         }
     }
 }

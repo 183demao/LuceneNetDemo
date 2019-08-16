@@ -48,10 +48,15 @@ namespace LuceneNetDemo
         /// <returns></returns>
         private IEnumerable<IIndexModel> Search(string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return Enumerable.Empty<IIndexModel>();
+            }
+
             Debug.Print($"搜索关键字：{input}");
 
             var results = LuceneNetAssist.Singleton.Search(input);
-            return Enumerable.Empty<IIndexModel>();
+            return results;
         }
 
         private void OutputListBox_DoubleClick(object sender, EventArgs e)

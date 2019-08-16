@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
@@ -12,6 +11,12 @@ using LuceneNetDemo.IndexModels;
 
 namespace LuceneNetDemo.Assists
 {
+    /// <summary>
+    /// Lucene.Net 全文检索引擎
+    /// </summary>
+    /// <see cref="https://github.com/apache/lucenenet"/>
+    /// <seealso cref="http://lucenenet.apache.org/"/>
+    /// <seealso cref="https://blog.csdn.net/lovestj/article/details/78687223"/>
     public class LuceneNetAssist : IFullTextSeachAssist
     {
         /// <summary>

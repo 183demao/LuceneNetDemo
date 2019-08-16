@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LuceneNetDemo.Assists;
 using LuceneNetDemo.IndexModels;
@@ -17,14 +16,14 @@ namespace LuceneNetDemo
             this.InitializeComponent();
         }
 
-        private async void MainForm_Shown(object sender, EventArgs e)
+        private void MainForm_Shown(object sender, EventArgs e)
         {
             this.InputTextBox.Focus();
 
-            await this.InitApplication();
+            this.InitApplication();
         }
 
-        private async Task InitApplication()
+        private void InitApplication()
         {
             var indices = Directory.GetFiles(@"C:\Program Files (x86)\360", "*", SearchOption.AllDirectories)
                 .Select(file => IndexModelFactory.CreateIndexModel(file))
@@ -33,10 +32,10 @@ namespace LuceneNetDemo
             LuceneNetAssist.Singleton.InitIndices(indices);
         }
 
-        private async void InputTextBox_TextChanged(object sender, EventArgs e)
+        private void InputTextBox_TextChanged(object sender, EventArgs e)
         {
             string input = this.InputTextBox.Text;
-            var indexModels = (await this.Search(input)).ToArray();
+            var indexModels = this.Search(input).ToArray();
 
             this.OutputListBox.Items.Clear();
             this.OutputListBox.Items.AddRange(indexModels);
@@ -47,11 +46,11 @@ namespace LuceneNetDemo
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        private async Task<IEnumerable<IIndexModel>> Search(string input)
+        private IEnumerable<IIndexModel> Search(string input)
         {
             Debug.Print($"搜索关键字：{input}");
-            var results = LuceneNetAssist.Singleton.Search(input);
 
+            var results = LuceneNetAssist.Singleton.Search(input);
             return Enumerable.Empty<IIndexModel>();
         }
 

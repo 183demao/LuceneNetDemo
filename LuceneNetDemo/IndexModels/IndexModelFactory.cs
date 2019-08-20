@@ -15,7 +15,6 @@ namespace LuceneNetDemo.IndexModels
         /// <returns></returns>
         public static IIndexModel CreateIndexModel(string address)
         {
-            Debug.Print(address);
             string extension = Path.GetExtension(address).ToLower();
 
             switch (extension)

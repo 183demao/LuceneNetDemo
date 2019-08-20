@@ -92,12 +92,7 @@ namespace LuceneNetDemo.Assists
                 {
                     try
                     {
-                        var document = new Document();
-
-                        // 在写入索引时必是不分词，否则是模糊搜索和删除，会出现混乱  
-                        document.Add(new Field(nameof(IIndexModel.Index), index.Index, Field.Store.YES, Field.Index.NOT_ANALYZED));
-                        document.Add(new Field(nameof(IIndexModel.Description), index.Description, Field.Store.YES, Field.Index.ANALYZED));
-
+                        var document = index.CreateDocument();
                         writer.AddDocument(document);
                     }
                     catch (Exception ex)
@@ -118,7 +113,7 @@ namespace LuceneNetDemo.Assists
         /// <returns></returns>
         public List<IIndexModel> Search(string keyword)
         {
-            //查询字段  
+            //查询字段
             string[] fileds = { nameof(IIndexModel.Index), nameof(IIndexModel.Description) };
             QueryParser parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, fileds, this.Analyzer);
             Query query = parser.Parse(keyword);
@@ -128,14 +123,7 @@ namespace LuceneNetDemo.Assists
                 .Select(hit =>
                 {
                     var doc = searcher.Doc(hit.Doc);
-                    var index = doc.Get(nameof(IIndexModel.Index));
-                    var description = doc.Get(nameof(IIndexModel.Description));
-
-                    return new IndexModel<string>()
-                    {
-                        Index = index,
-                        Description = description,
-                    } as IIndexModel;
+                    return IndexModelFactory.CreateIndexModel(doc);
                 })
                 .ToList();
         }

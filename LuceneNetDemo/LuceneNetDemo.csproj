@@ -49,6 +49,10 @@
   <ItemGroup>
     <Compile Include="Assists\IFullTextSeachAssist.cs" />
     <Compile Include="Assists\LuceneNetAssist.cs" />
+    <Compile Include="CustomModels\CommonIndexModel.cs" />
+    <Compile Include="CustomModels\DLLIndexModel.cs" />
+    <Compile Include="CustomModels\EXEIndexModel.cs" />
+    <Compile Include="CustomModels\ImageIndexModel.cs" />
     <Compile Include="IndexModels\IndexModelFactory.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

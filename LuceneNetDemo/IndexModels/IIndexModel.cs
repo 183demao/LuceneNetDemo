@@ -1,4 +1,6 @@
-﻿namespace LuceneNetDemo.IndexModels
+﻿using Lucene.Net.Documents;
+
+namespace LuceneNetDemo.IndexModels
 {
     /// <summary>
     /// 索引模型接口
@@ -16,6 +18,11 @@
         string Description { get; set; }
 
         /// <summary>
+        /// 索引类型
+        /// </summary>
+        IndexTypes IndexType { get; set; }
+
+        /// <summary>
         /// 附加数据
         /// </summary>
         object Tag { get; set; }
@@ -25,6 +32,18 @@
         /// </summary>
         /// <returns></returns>
         void Locate();
+
+        /// <summary>
+        /// 创建文档
+        /// </summary>
+        /// <returns></returns>
+        Document CreateDocument();
+
+        /// <summary>
+        /// 创建索引
+        /// </summary>
+        /// <returns></returns>
+        void FromDocument(Document document);
     }
 
     /// <summary>

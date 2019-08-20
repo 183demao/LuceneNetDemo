@@ -95,7 +95,7 @@ namespace LuceneNetDemo.Assists
                         var document = new Document();
 
                         // 在写入索引时必是不分词，否则是模糊搜索和删除，会出现混乱  
-                        document.Add(new Field(nameof(IIndexModel.Index), index.Index, Field.Store.YES, Field.Index.ANALYZED));
+                        document.Add(new Field(nameof(IIndexModel.Index), index.Index, Field.Store.YES, Field.Index.NOT_ANALYZED));
                         document.Add(new Field(nameof(IIndexModel.Description), index.Description, Field.Store.YES, Field.Index.ANALYZED));
 
                         writer.AddDocument(document);

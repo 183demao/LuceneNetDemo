@@ -114,7 +114,7 @@ namespace LuceneNetDemo.Assists
         public List<IIndexModel> Search(string keyword)
         {
             //查询字段
-            string[] fileds = { nameof(IIndexModel.Index), nameof(IIndexModel.Description) };
+            string[] fileds = { nameof(IIndexModel.Index), nameof(IIndexModel.Description), nameof(IndexModel<string>.AttachedEntity) };
             QueryParser parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, fileds, this.Analyzer);
             Query query = parser.Parse(keyword);
             IndexSearcher searcher = new IndexSearcher(this.Directory, true);

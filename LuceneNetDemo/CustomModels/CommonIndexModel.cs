@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+﻿using System.Diagnostics;
 using Lucene.Net.Documents;
 using LuceneNetDemo.IndexModels;
 
@@ -8,15 +8,20 @@ namespace LuceneNetDemo.CustomModels
     {
         public override void Locate()
         {
-            base.Locate();
-
-            MessageBox.Show($"使用通用方法打开索引：{this.Index}");
+            Process.Start("notepad.exe", this.Path);
         }
 
         public override Document CreateDocument()
-            => base.CreateDocument();
+        {
+            var document = base.CreateDocument();
+            document.Add(new Field(nameof(this.AttachedEntity), this.AttachedEntity, Field.Store.YES, Field.Index.ANALYZED));
+            return document;
+        }
 
         public override void FromDocument(Document document)
-            => base.FromDocument(document);
+        {
+            base.FromDocument(document);
+            this.AttachedEntity = document.Get(nameof(this.AttachedEntity));
+        }
     }
 }

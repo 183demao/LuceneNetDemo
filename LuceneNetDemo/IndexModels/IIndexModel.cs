@@ -23,6 +23,11 @@ namespace LuceneNetDemo.IndexModels
         IndexTypes IndexType { get; set; }
 
         /// <summary>
+        /// 路径
+        /// </summary>
+        string Path { get; set; }
+
+        /// <summary>
         /// 附加数据
         /// </summary>
         object Tag { get; set; }

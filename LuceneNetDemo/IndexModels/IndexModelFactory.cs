@@ -24,12 +24,12 @@ namespace LuceneNetDemo.IndexModels
             {
                 case ".exe":
                     {
-                        indexModel = new EXEIndexModel() { AttachedEntity = address };
+                        indexModel = new EXEIndexModel() { Path = address };
                         break;
                     }
                 case ".dll":
                     {
-                        indexModel = new DLLIndexModel() { AttachedEntity = address };
+                        indexModel = new DLLIndexModel() { Path = address };
                         break;
                     }
                 case ".png":
@@ -37,12 +37,16 @@ namespace LuceneNetDemo.IndexModels
                 case ".jpeg":
                 case ".ico":
                     {
-                        indexModel = new ImageIndexModel() { AttachedEntity = address };
+                        indexModel = new ImageIndexModel() { Path = address };
                         break;
                     }
                 default:
                     {
-                        indexModel = new CommonIndexModel() { AttachedEntity = address };
+                        indexModel = new CommonIndexModel()
+                        {
+                            Path = address,
+                            AttachedEntity = File.ReadAllText(address),
+                        };
                         break;
                     }
             }

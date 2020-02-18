@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Lucene.Net.Documents;
 
 namespace LuceneNetDemo.IndexModels
@@ -29,6 +30,11 @@ namespace LuceneNetDemo.IndexModels
         public TEntity AttachedEntity { get; set; }
 
         /// <summary>
+        /// 路径
+        /// </summary>
+        public string Path { get; set; }
+
+        /// <summary>
         /// 附加数据
         /// </summary>
         public object Tag { get; set; }
@@ -55,9 +61,10 @@ namespace LuceneNetDemo.IndexModels
         {
             var document = new Document();
 
-            document.Add(new Field(nameof(IIndexModel.Index), this.Index, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            document.Add(new Field(nameof(IIndexModel.Index), this.Index, Field.Store.YES, Field.Index.ANALYZED));
             document.Add(new Field(nameof(IIndexModel.Description), this.Description, Field.Store.YES, Field.Index.ANALYZED));
             document.Add(new Field(nameof(IIndexModel.IndexType), this.IndexType.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+            document.Add(new Field(nameof(IIndexModel.Path), this.Path, Field.Store.YES, Field.Index.ANALYZED));
 
             return document;
         }
@@ -70,6 +77,8 @@ namespace LuceneNetDemo.IndexModels
         {
             this.Index = document.Get(nameof(IIndexModel.Index));
             this.Description = document.Get(nameof(IIndexModel.Description));
+            this.Path = document.Get(nameof(IIndexModel.Path));
+            this.IndexType = Enum.TryParse<IndexTypes>(document.Get(nameof(IIndexModel.IndexType)), out var result) ? result : IndexTypes.Common;
         }
 
         public override string ToString()

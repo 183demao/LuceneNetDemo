@@ -25,7 +25,7 @@ namespace LuceneNetDemo
 
         private void InitApplication()
         {
-            var indices = Directory.GetFiles(@"C:\Program Files (x86)\360", "*", SearchOption.AllDirectories)
+            var indices = Directory.GetFiles(@"E:\DEVP\5.xIR_1.1\4.Tags\文档管理\综合版\综合版071", "*.txt", SearchOption.AllDirectories)
                 .Select(file => IndexModelFactory.CreateIndexModel(file))
                 .ToList();
 
@@ -37,6 +37,7 @@ namespace LuceneNetDemo
             string input = this.InputTextBox.Text;
             var indexModels = this.Search(input).ToArray();
 
+            this.Text = $"关键字：{input}，共 {indexModels.Length} 个结果";
             this.OutputListBox.Items.Clear();
             this.OutputListBox.Items.AddRange(indexModels);
         }

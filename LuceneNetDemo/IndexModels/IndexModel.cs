@@ -61,7 +61,7 @@ namespace LuceneNetDemo.IndexModels
         {
             var document = new Document();
 
-            document.Add(new Field(nameof(IIndexModel.Index), this.Index, Field.Store.YES, Field.Index.ANALYZED));
+            document.Add(new Field(nameof(IIndexModel.Index), this.Index, Field.Store.YES, Field.Index.NOT_ANALYZED));
             document.Add(new Field(nameof(IIndexModel.Description), this.Description, Field.Store.YES, Field.Index.ANALYZED));
             document.Add(new Field(nameof(IIndexModel.IndexType), this.IndexType.ToString(), Field.Store.YES, Field.Index.ANALYZED));
             document.Add(new Field(nameof(IIndexModel.Path), this.Path, Field.Store.YES, Field.Index.ANALYZED));
